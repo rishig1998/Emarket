@@ -1,0 +1,29 @@
+﻿@model List<EMarket.Entitie.Product>
+@{
+    ViewBag.Title = "ProductList";
+}
+
+<h2>ProductList</h2>
+
+<table>
+    <thead>
+        <tr>
+            <td width="100px" height="10px">Name</td>
+            <td width="100px" height="10px">Description</td>
+            <td width="100px" height="10px">Price</td>
+            <td width="100px" style="padding-left:10px;"><button>Edit</button></td>
+            <td width="100px" style="padding-left:10px;"><button>Delete</button></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="font-size:15px">@item.Name</td>
+                <td style="font-size:15px">@item.Description</td>
+                <td style="font-size:15px">@item.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

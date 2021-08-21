@@ -18,6 +18,12 @@ namespace Emarket.Web.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult ProductList()
+        {
+            var show=serviceproduct.Showproduct();
+            return View(show);
+        }
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
