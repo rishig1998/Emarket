@@ -1,0 +1,13 @@
+﻿@model EMarket.Entitie.Category
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<h4>*Are You sure do you whant to delete this data*</h4>
+<form method="post">
+    <input type="hidden" name="ID"  value="@Model.ID"/>
+    <button type="submit">Delete</button>
+</form>
+@*<a herf="~/view/Category/CategoryList">Cancel</a>*@
+
