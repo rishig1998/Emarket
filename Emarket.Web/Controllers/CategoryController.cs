@@ -19,7 +19,7 @@ namespace Emarket.Web.Controllers
         public  ActionResult CategoryList()
         {
             var show=serviceemarket.Showemarket();
-            return PartialView(show);
+            return View(show);
         }
       
         // GET: Category

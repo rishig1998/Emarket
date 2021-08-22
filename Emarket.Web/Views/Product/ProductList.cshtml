@@ -2,28 +2,126 @@
 @{
     ViewBag.Title = "ProductList";
 }
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <h2>ProductList</h2>
-
-<table>
-    <thead>
-        <tr>
-            <td width="100px" height="10px">Name</td>
-            <td width="100px" height="10px">Description</td>
-            <td width="100px" height="10px">Price</td>
-            <td width="100px" style="padding-left:10px;"><button>Edit</button></td>
-            <td width="100px" style="padding-left:10px;"><button>Delete</button></td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div>
+<form method="post">
+  
+        <input name="serch" id="textsearch">
+        <button type="button" id="searchbtn">Search</button>
+        <button type="button" id="newbtn">New</button>
+  
+</form>
+    </div>
+<div >
+    <table>
+        <thead>
             <tr>
-                <td style="font-size:15px">@item.Name</td>
-                <td style="font-size:15px">@item.Description</td>
-                <td style="font-size:15px">@item.Price</td>
+                <td width="100px" height="10px">Name</td>
+                <td width="100px" height="10px">Description</td>
+                <td width="100px" height="10px">Price</td>
+                <td width="100px" height="10px">Action</td>
+
+
+
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="font-size:15px">@item.Name</td>
+                    <td style="font-size:15px">@item.Description</td>
+                    <td style="font-size:15px">@item.Price</td>
+                    <td>
+                        <button type="button" class="edtbtn" data-id="@item.ID">Edit</button>
+
+                    </td>
+                    <td>  <button type="button" class="deletebtn"  data-id="@item.ID">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $("#searchbtn").click(function () {
+        var searchvalue = $("#textsearch").val();
+        $.ajax({
+            
+            url: '/Product/ProductList',
+            data: {
+                search: searchvalue
+            }
+        })
+            .done(function (responce) {
+                $("#TableProduct").html(responce);
+            })
+            .fail(function () {
+                alert("Faild");
+            })
+    });
+
+
+    $("#newbtn").click(function () {
+        
+        $.ajax({
+
+            url: '/Product/Create',
+            
+        })
+            .done(function (responce) {
+                $("#TableCreate").html(responce);
+            })
+            .fail(function () {
+                alert("Faild");
+            })
+    });
+
+
+    $(".edtbtn").click(function () {
+        
+        $.ajax({
+           
+            url:'/Product/Edit',
+            data: {
+                ID: $(this).attr('data-id')
+            }
+
+        })
+            .done(function (responce) {
+                $("#TableCreate").html(responce);
+            })
+            .fail(function () {
+                alert("Faild");
+            })
+    });
+
+    $(".deletebtn").click(function () {
+        var confermdelete = confirm("Are you sure");
+        if (confermdelete)
+        {
+            $.ajax({
+                type: 'POST',
+                url:'/Product/Delete',
+                data: {
+                    ID: $(this).attr('data-id')
+                }
+
+            })
+                .done(function (responce) {
+                    $("#TableProduct").html(responce);
+                })
+                .fail(function () {
+                    alert("Faild");
+                })
         }
-    </tbody>
-</table>
+        
+    });
+   
+</script>
+
+
+
 
